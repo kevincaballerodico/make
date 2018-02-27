@@ -1,0 +1,8 @@
+{
+	"files": [
+		{
+		  "pattern": "obj/*.o",
+		  "target": "generic-local/make/"
+		}
+	]
+}
