@@ -1,4 +1,4 @@
-node {
+node('master') {
 	docker.image('kevincaballerodico/ubuntu-make').inside('-u root') {
 		stage('Build') {
 			checkout([
@@ -14,13 +14,16 @@ node {
             sh 'make build'
             sh 'tree .'
 
-            stash name: 'app', includes: '/bin/app'
+            stash name: 'bin', includes: 'bin/app'
+            stash name: 'objects', includes: 'objects/*.o'
 		}
 	}
 
 	docker.image('kevincaballerodico/ubuntu-valgrind').inside('-u root') {
-		unstash name: 'app'
-		sh 'pwd'
-		sh 'tree .'
+		stage('Test') {
+			unstash name: 'bin'
+			sh 'pwd'
+			sh 'tree .'
+		}
 	}
 }
