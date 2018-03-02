@@ -7,9 +7,11 @@ node {
             	doGenerateSubmoduleConfigurations: false, 
             	extensions: [], 
             	submoduleCfg: [], 
-            	userRemoteConfigs: [[credentialsId: 'github.kevin.c.dico', url: 'https://github.com/kevincaballerodico/make-c.git']]
+            	userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/kevincaballerodico/make-c.git']]
             ])
 
+            sh 'cat /etc/*-release'
+            sh 'make all'
             sh 'tree .'
 		}
 	}
