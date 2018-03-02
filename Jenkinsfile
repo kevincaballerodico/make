@@ -1,6 +1,6 @@
 node('master') {
-	docker.image('kevincaballerodico/ubuntu-make').inside('-u root') {
-		stage('Build') {
+	stage('Build') {
+		docker.image('kevincaballerodico/ubuntu-make').inside('-u root') {
 			checkout([
             	$class: 'GitSCM', 
             	branches: [[name: '*/development']], 
@@ -10,18 +10,14 @@ node('master') {
             	userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/kevincaballerodico/make-c.git']]
             ])
 
-            sh 'pwd'
             sh 'make build'
             sh 'tree .'
-
-            stash name: 'bin', includes: 'bin/app'
-            stash name: 'objects', includes: 'objects/*.o'
 		}
 	}
 
-	docker.image('kevincaballerodico/ubuntu-valgrind').inside('-u root') {
-		stage('Test') {
-			sh 'pwd'
+	stage('Test') {
+		docker.image('kevincaballerodico/ubuntu-valgrind').inside('-u root') {
+			sh 'make valgrind'
 			sh 'tree .'
 		}
 	}

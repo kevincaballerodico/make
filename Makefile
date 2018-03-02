@@ -14,11 +14,8 @@ OBJR	= $(patsubst %,$(ODIR)/%,$(OBJP))
 
 APP		= app
 
-TESTS 	= valgrind
-
 .PHONY: build
 .PHONY: clean
-.PHONY: test
 .PHONY: valgrind
 
 build: $(APP)
@@ -34,8 +31,6 @@ $(APP): $(OBJP)
 clean:
 	rm -rf $(ODIR)/*.o
 	rm -f $(APP)
-
-test: $(TESTS)
 
 valgrind:
 	mkdir -p $(TDIR)/^@
