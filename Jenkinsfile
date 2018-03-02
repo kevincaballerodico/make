@@ -38,6 +38,8 @@ node('master') {
 		docker.image('kevincaballerodico/ubuntu-valgrind').inside('-u root') {
 			sh 'make valgrind'
 		}
+
+		sh 'tree .'
 	}
 
 	stage('Jenkins Artifacts') {
