@@ -2,9 +2,11 @@ CC		= gcc
 CFLAGS	= -Wall -g
 IDIR	= -Idummy
 
-VPATH	= src:dummy:obj
-ODIR	= obj
-BLD		= build
+VPATH	= src:dummy:objects
+
+ODIR	= objects
+BDIR	= bin
+TDIR	= reports
 
 DEPS	= dummy.h
 OBJP	= main.o dummy.o
@@ -12,21 +14,29 @@ OBJR	= $(patsubst %,$(ODIR)/%,$(OBJP))
 
 APP		= app
 
-.PHONY: directories
+TESTS 	= valgrind
+
+.PHONY: build
 .PHONY: clean
+.PHONY: test
+.PHONY: valgrind
 
-all: directories $(APP)
+build: $(APP)
 
-$(APP): $(OBJP) 
-	$(CC) -o $(BLD)/$@ $(OBJR) $(CFLAGS)
+$(APP): $(OBJP)
+	mkdir -p $(BDIR)
+	$(CC) -o $(BDIR)/$@ $(OBJR) $(CFLAGS)
 
 %.o: %.c $(DEPS)
-	$(CC) $(IDIR) -c -o $(ODIR)/$@ $< $(CFLAGS)
-
-directories:
 	mkdir -p $(ODIR)
-	mkdir -p $(BLD)
+	$(CC) $(IDIR) -c -o $(ODIR)/$@ $< $(CFLAGS)
 
 clean:
 	rm -rf $(ODIR)/*.o
 	rm -f $(APP)
+
+test: $(TESTS)
+
+valgrind:
+	mkdir -p $(TDIR)/^@
+	bash resources/scripts/^@-tests.sh ^@ $(BDIR)/$(APP) 65

@@ -15,4 +15,8 @@ node {
             sh 'tree .'
 		}
 	}
+
+	docker.image('kevincaballerodico/ubuntu-valgrind').inside('-u root') {
+
+	}
 }
