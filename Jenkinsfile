@@ -15,7 +15,7 @@ node('master') {
 	}
 
 	stage('Download Artifacts') {
-		def downloadSpecs = readFile 'resources/specs/props-download.json'
+		def downloadSpecs = readFile 'resources/specs/download-specs.json'
 
 		artifactory.download(downloadSpecs)
 	}
@@ -27,7 +27,7 @@ node('master') {
 	}
 
 	stage('Upload Artifacts') {
-		def uploadSpecs = readFile 'resources/specs/props-upload.json'
+		def uploadSpecs = readFile 'resources/specs/upload-specs.json'
 
 		artifactory.upload(uploadSpecs)
 	}
