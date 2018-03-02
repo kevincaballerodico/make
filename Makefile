@@ -7,6 +7,7 @@ VPATH	= src:dummy:objects
 ODIR	= objects
 BDIR	= bin
 TDIR	= reports
+SDIR	= resources/scripts
 
 DEPS	= dummy.h
 OBJP	= main.o dummy.o
@@ -14,9 +15,9 @@ OBJR	= $(patsubst %,$(ODIR)/%,$(OBJP))
 
 APP		= app
 
-.PHONY: build
-.PHONY: clean
-.PHONY: valgrind
+TESTS 	= valgrind
+
+.PHONY: build test clean
 
 build: $(APP)
 
@@ -28,10 +29,12 @@ $(APP): $(OBJP)
 	mkdir -p $(ODIR)
 	$(CC) $(IDIR) -c -o $(ODIR)/$@ $< $(CFLAGS)
 
-clean:
-	rm -rf $(ODIR)/*.o
-	rm -f $(APP)
+test: $(TESTS)
 
 valgrind:
 	mkdir -p $(TDIR)/$@
-	./resources/scripts/$@-tests.sh $@ $(BDIR)/$(APP) 65
+	./$(SDIR)/$@-tests.sh $(TDIR)/$@ $(BDIR)/$(APP) 65
+
+clean:
+	rm -rf $(ODIR)/*.o
+	rm -f $(APP)
