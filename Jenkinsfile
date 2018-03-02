@@ -1,6 +1,6 @@
 node {
 	docker.image('kevincaballerodico/ubuntu-make').inside('-u root') {
-		stage('MAKE BUILD') {
+		stage('Build') {
 			checkout([
             	$class: 'GitSCM', 
             	branches: [[name: '*/development']], 
@@ -10,13 +10,17 @@ node {
             	userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/kevincaballerodico/make-c.git']]
             ])
 
-            sh 'cat /etc/*-release'
-            sh 'make all'
+            sh 'pwd'
+            sh 'make build'
             sh 'tree .'
+
+            stash name: 'app', includes: '/bin/app'
 		}
 	}
 
 	docker.image('kevincaballerodico/ubuntu-valgrind').inside('-u root') {
-
+		unstash name: 'app'
+		sh 'pwd'
+		sh 'tree .'
 	}
 }
