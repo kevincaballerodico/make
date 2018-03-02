@@ -18,6 +18,8 @@ node('master') {
 		def downloadSpecs = readFile 'resources/specs/download-specs.json'
 
 		artifactory.download(downloadSpecs)
+
+		sh 'tree .'
 	}
 
 	stage('Release Build') {
