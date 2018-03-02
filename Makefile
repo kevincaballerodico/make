@@ -33,5 +33,5 @@ clean:
 	rm -f $(APP)
 
 valgrind:
-	mkdir -p $(TDIR)/^@
-	bash resources/scripts/^@-tests.sh ^@ $(BDIR)/$(APP) 65
+	mkdir -p $(TDIR)/$@
+	./resources/scripts/$@-tests.sh $@ $(BDIR)/$(APP) 65
