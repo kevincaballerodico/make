@@ -21,7 +21,6 @@ node('master') {
 
 	docker.image('kevincaballerodico/ubuntu-valgrind').inside('-u root') {
 		stage('Test') {
-			unstash name: 'bin'
 			sh 'pwd'
 			sh 'tree .'
 		}
