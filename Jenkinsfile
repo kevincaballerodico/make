@@ -10,6 +10,7 @@ node('master') {
             	userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/kevincaballerodico/make-c.git']]
             ])
 
+			sh 'chmod +x resources/scripts/*'
             sh 'make build'
             sh 'tree .'
 		}
