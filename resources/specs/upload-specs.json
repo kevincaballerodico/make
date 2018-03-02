@@ -2,7 +2,7 @@
 	"files": [
 		{
 		  "pattern": "objects/*.o",
-		  "target": "generic-local/objects/"
+		  "target": "generic-local/"
 		}
 	]
 }
