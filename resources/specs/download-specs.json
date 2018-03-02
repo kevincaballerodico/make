@@ -1,7 +1,7 @@
 {
 	"files": [
 		{
-		  "pattern": "make-c/objects/*.o",
+		  "pattern": "generic-local/make-c/objects/*.o",
 		  "target": "objects/"
 		}
 	]
