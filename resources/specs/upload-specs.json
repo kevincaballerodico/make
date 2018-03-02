@@ -1,0 +1,8 @@
+{
+	"files": [
+		{
+		  "pattern": "objects/*.o",
+		  "target": "make-c/objects/"
+		}
+	]
+}

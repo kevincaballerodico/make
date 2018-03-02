@@ -17,8 +17,7 @@ APP		= app
 
 TESTS 	= valgrind
 
-.PHONY: build test clean
-
+.PHONY: build
 build: $(APP)
 
 $(APP): $(OBJP)
@@ -29,12 +28,14 @@ $(APP): $(OBJP)
 	mkdir -p $(ODIR)
 	$(CC) $(IDIR) -c -o $(ODIR)/$@ $< $(CFLAGS)
 
+.PHONY: test
 test: $(TESTS)
 
 valgrind:
 	mkdir -p $(TDIR)/$@
 	./$(SDIR)/$@-tests.sh $(TDIR)/$@ $(BDIR)/$(APP) 65
 
+.PHONY: clean
 clean:
 	rm -rf $(ODIR)/*.o
 	rm -f $(APP)
