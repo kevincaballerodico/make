@@ -37,5 +37,5 @@ valgrind:
 
 .PHONY: clean
 clean:
-	rm -rf $(ODIR)/*.o
-	rm -f $(APP)
+	rm -rf $(ODIR)
+	rm -rf $(BDIR)

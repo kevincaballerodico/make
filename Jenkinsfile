@@ -8,7 +8,7 @@ node('master') {
         	doGenerateSubmoduleConfigurations: false, 
         	extensions: [], 
         	submoduleCfg: [], 
-        	userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/kevincaballerodico/make-c.git']]
+        	userRemoteConfigs: [[url: 'https://github.com/kevincaballerodico/make-c.git']]
         ])
 
         sh 'chmod +x resources/scripts/*'
@@ -18,8 +18,6 @@ node('master') {
 		def downloadSpecs = readFile 'resources/specs/download-specs.json'
 
 		artifactory.download(downloadSpecs)
-
-		sh 'tree .'
 	}
 
 	stage('Release Build') {
@@ -38,8 +36,6 @@ node('master') {
 		docker.image('kevincaballerodico/ubuntu-valgrind').inside('-u root') {
 			sh 'make valgrind'
 		}
-
-		sh 'tree .'
 	}
 
 	stage('Jenkins Artifacts') {
